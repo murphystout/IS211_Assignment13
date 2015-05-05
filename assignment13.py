@@ -132,15 +132,15 @@ def addresults():
 			students = [dict(student_id = row[0], studentname = row[1] + " " + row[2]) for row in cur.fetchall()]
 			return render_template('addresults.html', quizzes = quizzes, students = students)
 		elif request.method == 'POST':
-			# try:
-			g.db.execute('insert into RESULTS (STUDENTID, QUIZID, SCORE) values (?, ?, ?)', (request.form['student_id'],request.form['quiz_id'],request.form['score']))
-			g.db.commit()
-			flash("Quiz Records Updated")
-			return redirect("/dashboard")
+			try:
+				g.db.execute('insert into RESULTS (STUDENTID, QUIZID, SCORE) values (?, ?, ?)', (request.form['student_id'],request.form['quiz_id'],request.form['score']))
+				g.db.commit()
+				flash("Quiz Records Updated")
+				return redirect("/dashboard")
 				
-			# except:
-				# flash("Error Updating Record")
-				# return redirect("/results/add")
+			except:
+				flash("Error Updating Record")
+				return redirect("/results/add")
 				
 				
 		
